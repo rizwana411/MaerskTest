@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+<head>
+    <link type="text/css" rel="stylesheet" href="style.css" />
+    <script>
+        window.onload = function () {
+            var cards = document.getElementById("cards"),
+                button = document.getElementById("shuffle");
+            function shuffle(items) {
+                var slicedItem = items.slice(0),
+                    temp,
+                    i = slicedItem.length,
+                    rand;
+
+                console.log('slicedItem', slicedItem);
+                while (--i) {
+                    rand = Math.floor(i * Math.random());
+                    temp = slicedItem[rand];
+                    slicedItem[rand] = slicedItem[i];
+                    slicedItem[i] = temp;
+                }
+                return slicedItem;
+            }
+            function shuffleCardsNo() {
+                var nodes = cards.children, i = 0;
+                nodes = Array.prototype.slice.call(nodes);
+                nodes = shuffle(nodes);
+                while (i < nodes.length) {
+                    cards.appendChild(nodes[i]);
+                    ++i;
+                }
+            }
+            document.getElementById("shuffleCards").onclick = shuffleCardsNo;
+
+            function sortCards() {
+                var list, i, switchcard, b, shouldSwitchcard;
+                list = document.getElementById("cards");
+                switchcard = true;
+                while (switchcard) {
+                    switchcard = false;
+                    nodes = list.getElementsByTagName("LI");
+                    for (i = 0; i < (nodes.length - 1); i++) {                        
+                        shouldSwitchcard = false;
+                        if (nodes[i].innerHTML.toLowerCase() > nodes[i + 1].innerHTML.toLowerCase()) {
+                            shouldSwitchcard = true;
+                            break;
+                        }
+                    }
+                    if (shouldSwitchcard) {
+                        nodes[i].parentNode.insertBefore(nodes[i + 1], nodes[i]);
+                        switchcard = true;
+                    }
+                }
+            }
+            document.getElementById("sort").onclick = sortCards;
+        } 
+    </script>
+
+</head>
+
+<body>
+    <div class="wrapper">
+        <header>
+            <h1>Test 1</h1>
+            <div class="line"></div>
+        </header>
+
+        <aside>
+            <button id="shuffleCards" type="button" class="btn blue active">Shuffle</button>
+            <button id="sort" type="button" class="btn blue">Sort</button>
+
+        </aside>
+
+        <section>
+            <article>
+                <ul id="cards">
+                    <li class="box-1">1</li>
+                    <li class="box-2">2</li>
+                    <li class="box-3">3</li>
+                    <li class="box-4">4</li>
+                    <li class="box-5">5</li>
+                    <li class="box-6">6</li>
+                    <li class="box-7">7</li>
+                    <li class="box-8">8</li>
+                    <li class="box-9">9</li>
+                </ul>
+            </article>
+        </section>
+    </div>
+</body>
+
+</html>
